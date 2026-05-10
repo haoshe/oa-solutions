@@ -10,15 +10,16 @@ of length at least 2 are strictly descending by exactly 1 at every step.
 
 ## Python
 ```python
-def countDescendingSubarrays(nums):
-    left = 0
-    count = 0
-    for right in range(1, len(nums)):
-        if nums[right] != nums[right - 1] - 1:
-            sub_len = right - left
-            left = right
-            count += sub_len * (sub_len - 1) // 2
-    sub_len = len(nums) - left
-    count += sub_len * (sub_len - 1) // 2
-    return count
+  def countDescendingSubarrays(self, nums: List[int]) -> int:
+    left, right = 0, 1
+    res = 0
+    while right < len(nums):
+      while right < len(nums) and nums[right] == nums[right-1] -1:
+        right += 1
+      cur_len = right - left
+      left = right
+      if cur_len >= 2:
+        res += cur_len * (cur_len - 1) // 2
+      right += 1
+    return res
 ```
